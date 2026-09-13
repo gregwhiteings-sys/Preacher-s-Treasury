@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Preacher's Treasury — Voices of Faith Through the Ages</title>
+<meta name="description" content="A curated collection of wisdom, quotes, and stories from history's greatest evangelists and preachers, aligned with Scripture.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+:root{--bg:#fcfaf6;--card:#ffffff;--text:#0f172a;--muted:#64748b;--accent:#b45309;--accent-soft:rgba(180,83,9,.12);--accent2:#2d6b8a;--accent2-soft:rgba(45,107,138,.12);--border:rgba(15,23,42,.08)}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Source Sans 3",sans-serif;background:var(--bg);color:var(--text);line-height:1.7}
+h1,h2,h3,h4,h5{font-family:"Playfair Display",serif;color:var(--text);line-height:1.25}
+.serif{font-family:"Playfair Display",serif}
+.hero-gradient{background:radial-gradient(ellipse at top,rgba(180,83,9,.08),transparent 60%),radial-gradient(ellipse at bottom right,rgba(45,107,138,.06),transparent 50%),linear-gradient(180deg,#fdfbf7,#f7f2e8)}
+.ornament{display:flex;align-items:center;justify-content:center;gap:16px;color:var(--accent)}
+.ornament::before,.ornament::after{content:"";height:1px;width:80px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+.drop-cap::first-letter{font-family:"Playfair Display",serif;font-size:4.5rem;font-weight:700;float:left;line-height:.9;padding:6px 12px 0 0;color:var(--accent)}
+.quote-mark{font-family:"Playfair Display",serif;font-size:5rem;line-height:.8;color:var(--accent);opacity:.3;font-weight:700}
+.scripture-box{background:linear-gradient(135deg,var(--accent-soft),var(--accent2-soft));border-left:4px solid var(--accent);border-radius:0 12px 12px 0}
+.story-box{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,.04)}
+.nav-btn{transition:all .3s ease;border:1px solid var(--border);background:var(--card);cursor:pointer}
+.nav-btn:hover,.nav-btn:focus-visible{border-color:var(--accent);background:var(--accent-soft);transform:translateY(-2px)}
+.chapter-card{transition:all .4s ease;cursor:pointer;border:1px solid var(--border);background:var(--card)}
+.chapter-card:hover,.chapter-card:focus-visible{transform:translateY(-4px);box-shadow:0 12px 40px rgba(180,83,9,.12);border-color:var(--accent)}
+.chapter-card:focus-visible,.nav-btn:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.chapter-number{font-family:"Playfair Display",serif;font-size:3rem;font-weight:700;color:var(--accent);opacity:.25;line-height:1}
+.fade-in{animation:fadeIn .6s ease-out}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.scroll-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:100;transition:width .1s;width:0%}
+.divider-flourish{text-align:center;color:var(--accent);font-size:1.5rem;letter-spacing:1rem;opacity:.4;margin:2rem 0}
+.bible-ref{font-family:"Playfair Display",serif;font-style:italic;color:var(--accent2);font-weight:600}
+.gradient-text{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--accent);border-radius:4px}
+@media (prefers-reduced-motion: reduce){.fade-in{animation:none}.nav-btn,.chapter-card{transition:none}}
+.tab-bar{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.tab-bar::-webkit-scrollbar{display:none}
+.tab-bar-inner{display:flex;gap:6px;padding:10px 14px;min-width:max-content}
+.tab-btn{flex:0 0 auto;-webkit-tap-highlight-color:transparent;touch-action:manipulation;appearance:none;border:1px solid var(--border);background:var(--card);color:var(--muted);font-family:"Source Sans 3",sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.02em;padding:9px 16px;border-radius:999px;cursor:pointer;white-space:nowrap;transition:all .2s ease}
+.tab-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tab-btn:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.tab-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.beta-badge{position:fixed;bottom:16px;right:16px;z-index:95;background:#1a1a1a;color:#fff;font-size:.7rem;font-weight:700;letter-spacing:.08em;padding:7px 12px;border-radius:999px;box-shadow:0 4px 14px rgba(0,0,0,.25);text-transform:uppercase}
+section[id],#toc{scroll-margin-top:62px}
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<nav class="tab-bar" aria-label="Jump to preacher">
+  <div class="tab-bar-inner" id="tabBar"></div>
+</nav>
+
+<div class="beta-badge">Beta Preview</div>
+
+<!-- HERO / COVER -->
+<section class="hero-gradient py-24 px-6 text-center">
+  <div class="max-w-4xl mx-auto">
+    <div class="ornament mb-8 text-sm tracking-[0.3em] uppercase" style="color: var(--accent);">
+      <span>A Treasury of Faith</span>
+    </div>
+    <h1 class="serif text-5xl md:text-7xl font-bold mb-6" style="color: var(--text);">
+      The Preacher's<br>
+      <span class="gradient-text">Treasury</span>
+    </h1>
+    <p class="serif text-xl md:text-2xl italic mb-8" style="color: var(--muted);">
+      Voices of Faith Through the Ages
+    </p>
+    <div class="ornament mb-10">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z"/></svg>
+    </div>
+    <p class="text-lg max-w-2xl mx-auto mb-10" style="color: var(--muted); line-height: 1.8;">
+      A curated collection of wisdom, quotes, and stories from history's greatest evangelists and preachers —
+      their words aligned with the eternal truth of Scripture, that their faith may ignite yours.
+    </p>
+    <p class="serif italic text-base" style="color: var(--accent);">
+      "Faith comes by hearing, and hearing by the word of God." — Romans 10:17
+    </p>
+    <div class="mt-12 flex justify-center gap-4 flex-wrap">
+      <button type="button" onclick="scrollToChapter('toc')" class="nav-btn px-8 py-3 rounded-full font-medium" style="background: var(--accent); color: white; border-color: var(--accent);">
+        Begin Reading
+      </button>
+      <button type="button" onclick="scrollToChapter('chapter-1')" class="nav-btn px-8 py-3 rounded-full font-medium">
+        Start with Billy Graham
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- TABLE OF CONTENTS -->
+<section id="toc" class="py-20 px-6" style="background: var(--card); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="max-w-5xl mx-auto">
+    <div class="text-center mb-14">
+      <p class="text-sm tracking-[0.3em] uppercase mb-3" style="color: var(--accent);">Contents</p>
+      <h2 class="serif text-4xl font-bold">The Voices Within</h2>
+      <div class="ornament mt-6">
+        <span style="font-size: 0.8rem;">&#10022;</span>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-5" id="tocGrid"></div>
+  </div>
+</section>
+
+<!-- CHAPTERS CONTAINER -->
+<div id="chaptersContainer"></div>
+
+<!-- CLOSING / EPILOGUE -->
+<section class="py-24 px-6 text-center hero-gradient">
+  <div class="max-w-3xl mx-auto">
+    <div class="ornament mb-10">
+      <span style="font-size: 1rem;">&#10022; &#10022; &#10022;</span>
+    </div>
+    <h2 class="serif text-4xl font-bold mb-8">A Final Word</h2>
+    <div class="scripture-box p-8 text-left mb-10">
+      <p class="serif text-xl italic mb-3" style="color: var(--text);">
+        "Therefore, since we are surrounded by such a great cloud of witnesses, let us throw off
+        everything that hinders and the sin that so easily entangles. And let us run with
+        perseverance the race marked out for us, fixing our eyes on Jesus, the pioneer and
+        perfecter of faith."
+      </p>
+      <p class="bible-ref">— Hebrews 12:1-2</p>
+    </div>
+    <p class="text-lg mb-6" style="color: var(--muted); line-height: 1.8;">
+      The preachers within these pages were not perfect men and women — they were surrendered ones.
+      They held no power but the Holy Spirit, no wisdom but the Word of God, no message but Christ
+      and Him crucified. May their testimonies encourage you that the same God who worked through
+      them desires to work through you.
+    </p>
+    <p class="serif italic text-lg" style="color: var(--accent);">
+      "The world has yet to see what God can do with a man fully consecrated to Him."
+    </p>
+    <p class="text-sm mt-2" style="color: var(--muted);">— Words spoken to D.L. Moody by Henry Varley, which Moody took as his life's charge</p>
+    <div class="ornament mt-14">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z"/></svg>
+    </div>
+    <p class="serif mt-6" style="color: var(--muted);">Soli Deo Gloria</p>
+  </div>
+</section>
+
+<footer class="py-10 px-6 text-center" style="background: #1a1a1a; color: #888;">
+  <p class="serif text-sm">The Preacher's Treasury — A Compilation of Faith</p>
+  <p class="text-xs mt-2" style="color: #555;">All Scripture quotations aligned with the themes of each preacher's message. Quotes are widely attributed to each figure in devotional literature; readers seeking academic citation should consult primary biographies.</p>
+  <p class="text-xs mt-4" style="color: #555;">This page is a beta preview. Layout, content, and sourcing are still being refined — feedback is welcome.</p>
+</footer>
+
+<script>
+(function(){
+"use strict";
+const chapters = [
+  {
+    id: 'chapter-1', num: 'I', name: 'Billy Graham', title: "America's Pastor", years: '1918 – 2018',
+    bio: "William Franklin Graham Jr. preached the Gospel to more people than anyone else in history — over 215 million souls across 185 countries. His message was simple, unchanging, and always centered on the cross. With integrity that spanned seven decades of public ministry, he became known as 'America's Pastor,' counseling twelve U.S. presidents while remaining a shepherd to the common man.",
+    quotes: [
+      "It is the Holy Spirit's job to convict, God's job to judge, and my job to love.",
+      "The will of God will not take us where the grace of God cannot sustain us.",
+      "I've read the last page of the Bible. It's all going to turn out all right.",
+      "Life without God is like an unsharpened pencil — it has no point.",
+      "My one purpose in life is to help people find a personal relationship with God, which, I believe, comes through knowing Christ."
+    ],
+    story: { title: "The Man Who Refused to Compromise", text: "In 1949, a young Billy Graham held a tent revival in Los Angeles scheduled for three weeks. It lasted eight. As crowds swelled, newspaper magnate William Randolph Hearst sent a telegram: 'Puff Graham.' The media attention catapulted him onto the national stage. Yet when offered fame, wealth, and political influence, Graham repeatedly chose faithfulness over favor. He established strict financial accountability, refused to meet alone with women other than his wife Ruth, and declined opportunities that might politicize his pulpit. Once, when criticized for being too simple in his preaching, he replied: 'The Gospel is simple. I didn't make it that way — God did. And I'm not going to complicate it with my theology.'" },
+    scripture: { text: "For I am not ashamed of the gospel, because it is the power of God that brings salvation to everyone who believes: first to the Jew, then to the Gentile.", ref: "Romans 1:16" }
+  },
+  {
+    id: 'chapter-2', num: 'II', name: 'Charles H. Spurgeon', title: "The Prince of Preachers", years: '1834 – 1892',
+    bio: "Charles Haddon Spurgeon began preaching at age 19 and quickly became the most popular preacher of his day. His congregation at the Metropolitan Tabernacle in London numbered 6,000, yet he never used notes and spoke with such clarity and power that thousands hung on every word. He authored over 60 books, and his sermons — still published today — fill 63 volumes. Yet for all his fame, he battled depression, illness, and deep spiritual darkness, experiences that gave his words an unparalleled depth of compassion.",
+    quotes: [
+      "To trust God in the light is nothing, but to trust Him in the dark — that is faith.",
+      "It is not your hold of Christ that saves you, but His hold of you.",
+      "Prayer is not overcoming God's reluctance. It is laying hold of His willingness.",
+      "The joys of heaven will surely compensate for the sorrows of earth.",
+      "Faith goes up the stairs that love has built and looks out the windows which hope has opened."
+    ],
+    story: { title: "The Text That Saved a Soul", text: "On a bitterly cold January morning in 1850, a 15-year-old Spurgeon was on his way to a fashionable church when a snowstorm forced him to seek shelter in a small Primitive Methodist chapel. There were only a dozen people present. The preacher, a rough-looking man, read from Isaiah 45:22: 'Look unto me, and be ye saved, all the ends of the earth.' He scarcely preached at all, but kept repeating those words, 'Look unto Me!' Finally, his eyes fell on the young visitor in the back and he said, 'Young man, you are in trouble. Look unto Jesus Christ alone.' In that moment, Spurgeon later recalled, 'I saw at once that if I trusted in the work of Christ alone, I was saved.' The greatest preacher of the Victorian age was converted not by a great sermon, but by a simple man pointing to Jesus." },
+    scripture: { text: "Look to me and be saved, all you ends of the earth; for I am God, and there is no other.", ref: "Isaiah 45:22" }
+  },
+  {
+    id: 'chapter-3', num: 'III', name: 'Dwight L. Moody', title: "The Unlikely Evangelist", years: '1837 – 1899',
+    bio: "Dwight Lyman Moody was a shoe salesman with only a fifth-grade education who became one of the greatest evangelists of the 19th century. Rejected for formal ministry because of his crude speech and lack of education, he went to the streets of Chicago instead, ministering to the poor, the lost, and the forgotten. With song leader Ira Sankey, he conducted massive revivals on both sides of the Atlantic, preaching to over 100 million people. He founded the Moody Church, Moody Bible Institute, and Moody Publishers — institutions that still bear fruit today.",
+    quotes: [
+      "I believe firmly that the principle of preaching is to utterly destroy man's self-confidence and to give him confidence in Christ.",
+      "If you are going to walk with Jesus Christ, you must expect to be misunderstood.",
+      "Faith makes all things possible... love makes all things easy.",
+      "Our faith is only real when there is no other possible reliance.",
+      "Character is what you are in the dark."
+    ],
+    story: { title: "The Midnight Policeman", text: "D.L. Moody made a solemn vow: never let a day pass without speaking to at least one person about their soul. One night, having already retired to bed, he suddenly remembered — he had not spoken to anyone about Christ that day. He quickly dressed and went out into the dark, empty streets. The only soul in sight was a policeman on his beat. Moody approached him and said urgently, 'My friend, you must believe in the Lord Jesus Christ to be saved!' The policeman, taken aback, replied, 'Sir, if I were your commanding officer, I would discipline you for this!' Moody went home troubled. But years later, at a large meeting in England, a man came forward and testified that a stranger's late-night word on the street had haunted him until he found the Savior. Moody's faithfulness, even when it seemed foolish, had borne eternal fruit." },
+    scripture: { text: "How, then, can they call on the one they have not believed in? And how can they believe in the one of whom they have not heard? And how can they hear without someone preaching to them?", ref: "Romans 10:14" }
+  },
+  {
+    id: 'chapter-4', num: 'IV', name: 'John Wesley', title: "The Founder of Methodism", years: '1703 – 1791',
+    bio: "John Wesley was an Anglican priest whose heart was 'strangely warmed' at a Moravian meeting in London in 1738. From that moment, he embarked on a ministry that would shake the foundations of England. Rejected by the established church, he took to the fields — preaching to coal miners, factory workers, and the poor. He traveled over 250,000 miles on horseback, preached more than 40,000 sermons, and organized his followers into 'societies' that became the Methodist movement. His emphasis on personal piety, social holiness, and disciplined Christian living transformed a nation.",
+    quotes: [
+      "I have never yet found any man who understood and loved the gospel, who did not love all mankind.",
+      "Do all the good you can, by all the means you can, in all the ways you can, in all the places you can, at all the times you can, to all the people you can, as long as ever you can.",
+      "What one generation tolerates, the next generation will embrace.",
+      "Give me one hundred preachers who fear nothing but sin and desire nothing but God, and I care not a straw whether they be clergymen or laymen; these alone will shake the gates of hell.",
+      "God does nothing but in answer to prayer."
+    ],
+    story: { title: "The Fire That Could Not Burn Him", text: "When John Wesley was a small child, the parsonage at Epworth caught fire in the middle of the night. The family escaped, but little John was trapped on an upper floor. With the roof collapsing and the flames raging, neighbors formed a human ladder to pull him to safety — moments before the roof caved in. His mother Susanna wrote in her journal that night that this child was reserved for some special purpose. Throughout his long life of 88 years, Wesley faced mob violence, shipwrecks, and hardship, yet he always believed he was preserved by God for a divine calling, later describing himself as 'a brand plucked from the burning.'" },
+    scripture: { text: "Before I formed you in the womb I knew you, before you were born I set you apart; I appointed you as a prophet to the nations.", ref: "Jeremiah 1:5" }
+  },
+  {
+    id: 'chapter-5', num: 'V', name: 'George Whitefield', title: "The Voice of the Great Awakening", years: '1714 – 1770',
+    bio: "George Whitefield was an Anglican priest whose booming voice could be heard by crowds of thousands without amplification. A contemporary of John Wesley, he became the fiery voice of the Great Awakening on both sides of the Atlantic. Benjamin Franklin, who was skeptical of religion, was so captivated by Whitefield's oratory that he became his friend and publisher. Whitefield crossed the Atlantic thirteen times, preaching thousands of sermons. His open-air preaching in the fields of America helped ignite a spiritual revolution that shaped the soul of a new nation.",
+    quotes: [
+      "The righteousness of Christ is not a cloak to cover sin, but a medicine to cure it.",
+      "We are immortal until our work on earth is done.",
+      "God had one Son without sin, but He never had a son without suffering.",
+      "Take away Christ from the Bible, and you take away the sun from the heavens.",
+      "Press forward, press forward! Do not stop short of the mark."
+    ],
+    story: { title: "The Sermon That Moved a Skeptic", text: "Benjamin Franklin, a man of the Enlightenment who doubted organized religion, attended one of Whitefield's open-air meetings in Philadelphia, intending purely to judge the preacher's oratory skills. He had resolved beforehand not to give any money to the collection. But as Whitefield preached, Franklin found himself moved despite himself, and by the sermon's end he emptied his pockets — copper, silver, and gold — into the collection. A man who could move the guarded heart of Benjamin Franklin had indeed been given an extraordinary gift for the pulpit." },
+    scripture: { text: "But you will receive power when the Holy Spirit comes on you; and you will be my witnesses in Jerusalem, and in all Judea and Samaria, and to the ends of the earth.", ref: "Acts 1:8" }
+  },
+  {
+    id: 'chapter-6', num: 'VI', name: 'Jonathan Edwards', title: "The Philosopher-Theologian", years: '1703 – 1758',
+    bio: "Jonathan Edwards was a Puritan pastor, theologian, and philosopher whose preaching helped ignite the Great Awakening in America. A graduate of Yale, he possessed one of the most brilliant minds in Christian history. His sermon 'Sinners in the Hands of an Angry God' — though often remembered as merely fire and brimstone — was in fact a careful meditation on God's mercy in withholding judgment. Later dismissed from his own church, he remained faithful and became president of what would become Princeton University.",
+    quotes: [
+      "The best, most beautiful, and most perfect way that we have of expressing a sweet concord of mind to each other is by music.",
+      "God is the highest good of intelligent beings.",
+      "The way to Heaven is ascending; we must be content to travel uphill, though it be hard and tiresome.",
+      "Resolved: never to do anything which I should be afraid to do if it were the last hour of my life.",
+      "Grace is but glory begun; and glory is but grace perfected."
+    ],
+    story: { title: "The Spider and the Flame", text: "Edwards' most famous sermon, 'Sinners in the Hands of an Angry God,' was preached in Enfield, Connecticut, in 1741. As he spoke, he used the image of a spider held over a flame to illustrate the precariousness of the human condition apart from God. As he preached, in a calm, measured voice without dramatic gestures, the congregation was overcome — some cried out, others wept. Edwards himself was reportedly astonished by the response, and later reflected that the power of the sermon lay not in his delivery, but in the Holy Spirit applying the Word directly to hearts." },
+    scripture: { text: "For the word of God is alive and active. Sharper than any double-edged sword, it penetrates even to dividing soul and spirit, joints and marrow; it judges the thoughts and attitudes of the heart.", ref: "Hebrews 4:12" }
+  },
+  {
+    id: 'chapter-7', num: 'VII', name: 'A.W. Tozer', title: "A Prophet to the Church", years: '1897 – 1963',
+    bio: "Aiden Wilson Tozer was a largely self-educated pastor and author whose writings have become Christian classics. Converted as a teenager after hearing a street preacher, he served as a pastor in the Christian and Missionary Alliance for over four decades. His books, including 'The Pursuit of God' and 'The Knowledge of the Holy,' call the church back to genuine spiritual experience and the pursuit of God's presence. He had little formal theological training, yet his profound insights into the nature of God earned him the title 'a prophet to the church.'",
+    quotes: [
+      "What comes into our minds when we think about God is the most important thing about us.",
+      "The Bible is not an end in itself, but a means to bring men to an intimate and satisfying knowledge of God.",
+      "To have found God and still to pursue Him is the soul's paradox of love.",
+      "The true follower of Christ will not ask, 'If I embrace this truth, what will it cost me?' Rather he will say, 'This is truth. God help me to walk in it, let come what may.'",
+      "God is looking for men in whose hands His glory is safe."
+    ],
+    story: { title: "The Man Who Walked With God", text: "Tozer's ministry was marked by an extraordinary discipline of prayer and meditation, often rising early to spend hours in the presence of God. Those close to him said he preached what he had been studying in God, not merely what he had prepared as a lecture. He was fiercely critical of the church's tendency to substitute programs and entertainment for genuine communion with God, and called believers back again and again to the quiet, unseen pursuit of His presence." },
+    scripture: { text: "You will seek me and find me when you seek me with all your heart.", ref: "Jeremiah 29:13" }
+  },
+  {
+    id: 'chapter-8', num: 'VIII', name: 'Oswald Chambers', title: "The Utmost for His Highest", years: '1874 – 1917',
+    bio: "Oswald Chambers was a Scottish Baptist minister and teacher whose devotional writings have inspired millions. He studied art before turning to ministry, and his words reflect a painter's eye for spiritual beauty. He served as principal of the Bible Training College in London and later as a YMCA chaplain to Allied troops in Egypt during World War I. He died unexpectedly at age 43. His wife 'Biddy,' who had taken down his lectures in shorthand, spent the rest of her life transcribing and publishing his talks — giving the world 'My Utmost for His Highest,' one of the most widely read devotionals in the English language.",
+    quotes: [
+      "Beware of anything that competes with your loyalty to Jesus Christ. The greatest competitor of true devotion to Jesus is the service we do for Him.",
+      "If we are devoted to the cause of humanity, we shall soon be crushed and broken-hearted. But if we are devoted to Jesus Christ, humanity becomes our opportunity.",
+      "The purpose of prayer is not to change God's mind, but to change our own.",
+      "We are not here to be successful, we are here to be faithful.",
+      "Shut out every consideration and keep yourself before God for this one thing only — My Utmost for His Highest."
+    ],
+    story: { title: "The Legacy of a Short Life", text: "Oswald Chambers died far from home, in an army camp in Egypt, leaving behind a grieving widow, a young daughter, and no published books of his own. By worldly standards, his ministry seemed cut short and incomplete. But his wife Biddy spent the next three decades transcribing the shorthand notes she had taken during his Bible studies and sermons — tens of thousands of pages of them. The result was 'My Utmost for His Highest,' a daily devotional translated into dozens of languages and read by millions. Chambers' short life is often held up as a picture of a seed that fell into the ground and, in dying, bore far more fruit than it could have standing alone." },
+    scripture: { text: "Unless a kernel of wheat falls to the ground and dies, it remains only a single seed. But if it dies, it produces many seeds.", ref: "John 12:24" }
+  },
+  {
+    id: 'chapter-9', num: 'IX', name: 'Ravi Zacharias', title: "The Apologist to the Heart", years: '1946 – 2020',
+    bio: "Ravi Zacharias was an Indian-born Canadian Christian apologist who addressed the deepest questions of life with intellectual rigor and a focus on the longings of the human heart. Converted as a teenager, he went on to found Ravi Zacharias International Ministries and to speak at universities, parliaments, and public forums around the world, arguing that the Gospel answers both the intellect's questions and the soul's deepest longings.",
+    quotes: [
+      "Jesus didn't come to make bad people good; He came to make dead people alive.",
+      "The Christian faith is not a set of propositions to be memorized, but a Person to be known.",
+      "The problem with our generation is not that we don't believe in anything, but that we believe in everything.",
+      "Meaninglessness does not come from being weary of pain; meaninglessness comes from being weary of pleasure.",
+      "There is a God-shaped vacuum in every heart that only God can fill."
+    ],
+    story: { title: "A Turning Point", text: "As a teenager in New Delhi, Ravi Zacharias went through a period of despair so deep that he attempted to take his own life. In the aftermath, a Christian worker visited him and read from John's Gospel: 'Because I live, you also will live.' Those words marked a turning point. He later said that he went into that hospital room believing life was meaningless, and came out believing it was worth spending in pursuit of the truth he had found — a conviction that shaped the next five decades of his ministry.\n\nNote: readers should be aware that after Zacharias's death in 2020, an independent investigation commissioned by his own ministry found credible evidence of serious sexual misconduct spanning many years. His legacy is now widely regarded as deeply complicated, and this should be weighed by anyone including him in a devotional collection." },
+    scripture: { text: "Jesus said to her, 'I am the resurrection and the life. The one who believes in me will live, even though they die; and whoever lives by believing in me will never die. Do you believe this?'", ref: "John 11:25-26" }
+  },
+  {
+    id: 'chapter-10', num: 'X', name: 'Corrie ten Boom', title: "The Hiding Place of Forgiveness", years: '1892 – 1983',
+    bio: "Cornelia 'Corrie' ten Boom was a Dutch watchmaker who, with her family, hid Jews from the Nazis during the Holocaust. Their home in Haarlem became known as 'The Hiding Place,' and they are credited with saving many lives before being betrayed and arrested. Corrie was sent to the Ravensbrück concentration camp, where she endured terrible suffering and watched her beloved sister Betsie die. After the war, she became a powerful evangelist, traveling the world to preach a message of forgiveness and reconciliation.",
+    quotes: [
+      "There is no pit so deep that God's love is not deeper still.",
+      "Forgiveness is an act of the will, and the will can function regardless of the temperature of the heart.",
+      "The measure of a life, after all, is not its duration, but its donation.",
+      "Worrying is carrying tomorrow's load with today's strength — carrying two days at once.",
+      "Never be afraid to trust an unknown future to a known God."
+    ],
+    story: { title: "The Embrace of Forgiveness", text: "In 1947, Corrie ten Boom was speaking in Munich on the message of forgiveness when a man approached her after the meeting — and she recognized him as one of the guards from Ravensbrück, a man who had overseen the suffering of countless women, including her sister Betsie. He extended his hand and asked whether she would forgive him. Corrie later wrote that in her own strength she could not do it — the memories were too raw — but as she silently prayed for help, she found herself able to take his hand. 'I forgive you, brother,' she said, 'with all my heart.' She described that moment as one of the clearest experiences of God's love she ever had, precisely because the forgiveness had cost her something real." },
+    scripture: { text: "For if you forgive other people when they sin against you, your heavenly Father will also forgive you. But if you do not forgive others their sins, your Father will not forgive your sins.", ref: "Matthew 6:14-15" }
+  }
+];
+
+function escapeHtml(str){
+  return String(str)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
+}
+
+// Build sticky tab bar
+var tabBar = document.getElementById('tabBar');
+chapters.forEach(function(ch){
+  var tab = document.createElement('button');
+  tab.type = 'button';
+  tab.className = 'tab-btn';
+  tab.id = 'tab-' + ch.id;
+  tab.textContent = ch.name;
+  tab.setAttribute('aria-label', 'Go to ' + ch.name);
+  tab.addEventListener('click', function(){ scrollToChapter(ch.id); });
+  tabBar.appendChild(tab);
+});
+
+function setActiveTab(chapterId){
+  var tabs = tabBar.querySelectorAll('.tab-btn');
+  tabs.forEach(function(t){ t.classList.remove('active'); });
+  var active = document.getElementById('tab-' + chapterId);
+  if (active){
+    active.classList.add('active');
+    active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
+}
+
+// Build TOC
+var tocGrid = document.getElementById('tocGrid');
+chapters.forEach(function(ch){
+  var card = document.createElement('div');
+  card.className = 'chapter-card p-6 rounded-xl';
+  card.setAttribute('role','button');
+  card.setAttribute('tabindex','0');
+  card.setAttribute('aria-label','Jump to chapter on ' + ch.name);
+  card.addEventListener('click', function(){ scrollToChapter(ch.id); });
+  card.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); scrollToChapter(ch.id); }
+  });
+  card.innerHTML =
+    '<div class="flex items-start gap-4">' +
+      '<div class="chapter-number serif" style="min-width:60px;">' + escapeHtml(ch.num) + '</div>' +
+      '<div class="flex-1">' +
+        '<h3 class="serif text-xl font-bold mb-1">' + escapeHtml(ch.name) + '</h3>' +
+        '<p class="text-sm italic mb-2" style="color:var(--accent);">' + escapeHtml(ch.title) + '</p>' +
+        '<p class="text-xs" style="color:var(--muted);">' + escapeHtml(ch.years) + '</p>' +
+      '</div>' +
+      '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--accent);align-self:center;" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>' +
+    '</div>';
+  tocGrid.appendChild(card);
+});
+
+// Build Chapters
+var container = document.getElementById('chaptersContainer');
+chapters.forEach(function(ch, i){
+  var section = document.createElement('section');
+  section.id = ch.id;
+  section.className = 'py-20 px-6 fade-in';
+  section.style.background = i % 2 === 0 ? 'var(--bg)' : 'var(--card)';
+  section.style.borderTop = '1px solid var(--border)';
+
+  var quotesHtml = ch.quotes.map(function(q){
+    return '<div class="flex gap-4 mb-6"><span class="quote-mark" aria-hidden="true">&#8220;</span><p class="serif text-lg italic pt-4" style="color:var(--text);line-height:1.6;">' + escapeHtml(q) + '</p></div>';
+  }).join('');
+
+  var storyText = ch.story.text.split('\n\n').map(function(p){
+    return '<p class="text-lg mb-4" style="color:var(--text);line-height:1.8;">' + escapeHtml(p) + '</p>';
+  }).join('');
+
+  section.innerHTML =
+    '<div class="max-w-4xl mx-auto">' +
+      '<div class="text-center mb-12">' +
+        '<p class="serif text-5xl mb-2" style="color:var(--accent);opacity:.4;">' + escapeHtml(ch.num) + '</p>' +
+        '<h2 class="serif text-4xl md:text-5xl font-bold mb-2">' + escapeHtml(ch.name) + '</h2>' +
+        '<p class="serif italic text-xl mb-2" style="color:var(--accent);">' + escapeHtml(ch.title) + '</p>' +
+        '<p class="text-sm tracking-widest uppercase mb-6" style="color:var(--muted);">' + escapeHtml(ch.years) + '</p>' +
+        '<div class="ornament"><span style="font-size:.8rem;">&#10022;</span></div>' +
+      '</div>' +
+      '<div class="mb-12"><p class="drop-cap text-lg" style="color:var(--text);line-height:1.8;">' + escapeHtml(ch.bio) + '</p></div>' +
+      '<div class="mb-12">' +
+        '<h3 class="serif text-2xl font-bold mb-6 flex items-center gap-3"><span style="width:40px;height:1px;background:var(--accent);"></span>His Words<span style="width:40px;height:1px;background:var(--accent);"></span></h3>' +
+        '<div class="pl-4" style="border-left:2px solid var(--accent-soft);">' + quotesHtml + '</div>' +
+      '</div>' +
+      '<div class="story-box p-8 mb-12">' +
+        '<h3 class="serif text-2xl font-bold mb-4" style="color:var(--accent);">&#10022; ' + escapeHtml(ch.story.title) + '</h3>' +
+        storyText +
+      '</div>' +
+      '<div class="scripture-box p-8">' +
+        '<p class="text-xs tracking-widest uppercase mb-3" style="color:var(--accent);">Aligned Scripture</p>' +
+        '<p class="serif text-xl italic mb-3" style="color:var(--text);line-height:1.6;">' + escapeHtml(ch.scripture.text) + '</p>' +
+        '<p class="bible-ref">— ' + escapeHtml(ch.scripture.ref) + '</p>' +
+      '</div>' +
+      '<div class="divider-flourish">&#10022; &#10022; &#10022;</div>' +
+    '</div>';
+  container.appendChild(section);
+});
+
+window.scrollToChapter = function(id){
+  var el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+};
+
+// Highlight the tab for whichever chapter is currently in view
+if ('IntersectionObserver' in window){
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){ setActiveTab(entry.target.id); }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+  chapters.forEach(function(ch){
+    var el = document.getElementById(ch.id);
+    if (el) observer.observe(el);
+  });
+}
+
+var progressBar = document.getElementById('scrollProgress');
+window.addEventListener('scroll', function(){
+  var scrollTop = window.scrollY;
+  var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  var progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  progressBar.style.width = progress + '%';
+}, { passive: true });
+})();
+</script>
+</body>
+</html>
